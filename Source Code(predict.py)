@@ -1,0 +1,24 @@
+import joblib
+import pandas as pd
+
+# Load trained model
+model = joblib.load("model/house_price_model.pkl")
+
+print("Enter House Details")
+
+area = float(input("Area (sq ft): "))
+bedrooms = int(input("Bedrooms: "))
+bathrooms = int(input("Bathrooms: "))
+stories = int(input("Stories: "))
+parking = int(input("Parking Spaces: "))
+
+# Create DataFrame
+house = pd.DataFrame(
+    [[area, bedrooms, bathrooms, stories, parking]],
+    columns=["area", "bedrooms", "bathrooms", "stories", "parking"]
+)
+
+# Predict
+prediction = model.predict(house)
+
+print("\nEstimated House Price: ₹{:,.2f}".format(prediction[0]))
